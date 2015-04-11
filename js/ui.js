@@ -55,13 +55,19 @@ ZenPen.ui = (function() {
       darkLayout = !darkLayout;
     }
 
+    // Activate timer
+    if ( localStorage['timerMinutes'] && localStorage['timerMinutes'] !== "0" ) {
+      timerElement.value = localStorage['timerMinutes'];
+    }
+
   }
 
   function saveState() {
 
     if ( ZenPen.util.supportsHtmlStorage() ) {
-      localStorage[ 'darkLayout' ] = darkLayout;
-      localStorage[ 'wordCount' ] = wordCountElement.value;
+      localStorage['darkLayout'] = darkLayout;
+      localStorage['wordCount'] = wordCountElement.value;
+      localStorage['timerMinutes'] = timerElement.value;
     }
   }
 
@@ -216,6 +222,8 @@ ZenPen.ui = (function() {
       }
 
       removeOverlay();
+
+      saveState();
 
       article.focus();
     }
